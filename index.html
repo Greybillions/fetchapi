@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Country API</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <section class="container">
+      <h1>Country Info Finder</h1>
+
+      <!-- Search Input -->
+      <div class="search-box">
+        <input
+          type="text"
+          id="country-input"
+          placeholder="Enter a country name"
+        />
+        <button id="search-btn">Search</button>
+      </div>
+
+      <!-- Country Information Section -->
+      <div class="country-info">
+        <div id="error-message"></div>
+        <div id="result">
+          <h2 id="country-name"></h2>
+          <img id="country-flag" alt="Country Flag" />
+          <p><strong>Capital:</strong> <span id="capital"></span></p>
+          <p><strong>Population:</strong> <span id="population"></span></p>
+          <p><strong>Region:</strong> <span id="region"></span></p>
+          <p><strong>Currency:</strong> <span id="currency"></span></p>
+        </div>
+      </div>
+    </section>
+
+    <script src="script.js"></script>
+  </body>
+</html>
