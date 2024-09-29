@@ -5,7 +5,7 @@
 ### **Table of Contents**
 
 - Introduction
-- Prerequisite
+- Prerequisites
 - What is Fetch API?
 - Creating a basic HTML/CSS page
 - Making a Basic GET Request
