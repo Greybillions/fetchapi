@@ -1,6 +1,6 @@
 'use strict';
 
-// Country API link = https://restcountries.com/v3.1/all
+// Country API link = https://restcountries.com/v3.1/all & https://restcountries.com/v3.1/name/${country}`
 
 // Get the HTML elements
 const searchBtn = document.getElementById('search-btn'),
@@ -40,13 +40,18 @@ const countryDatalist = async () => {
 // Function to fetch country data
 const fetchCountryData = () => {
   const country = countryInput.value.trim(); // Get user input and remove any extra spaces
+  if (country === ' ') {
+    errorMessage.textContent = 'Please enter a country name';
+    resultDiv.style.display = 'none';
+    return;
+  }
 
   // Clear previous error messages and results
   errorMessage.textContent = ' ';
   resultDiv.style.display = 'none';
 
   // Fetch data from the REST Countries API
-  fetch(restCountries + `/name/${country}`)
+  fetch(restCountries + `name/${country}`)
     .then((response) => {
       if (!response.ok) {
         throw new Error('Country not found');
