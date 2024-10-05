@@ -12,7 +12,24 @@ const searchBtn = document.getElementById('search-btn'),
   region = document.getElementById('region'),
   currency = document.getElementById('currency'), // New currency element
   resultDiv = document.getElementById('result'),
-  errorMessage = document.getElementById('error-message');
+  errorMessage = document.getElementById('error-message'),
+  datalist = document.getElementById('countries'); //for options
+
+const populateCountryDatalist = async () => {
+  try {
+    const response = await fetch('https://restcountries.com/v3.1/all');
+    const countries = await response.json();
+
+    // Loop through the countries and add <option> elements to the datalist
+    countries.forEach((country) => {
+      const option = document.createElement('option');
+      option.value = country.name.common; // Use the common name of the country
+      datalist.appendChild(option); // Append the option to the datalist
+    });
+  } catch (error) {
+    console.error('Error fetching country list:', error);
+  }
+};
 
 // Function to fetch country data
 const fetchCountryData = () => {
@@ -67,6 +84,8 @@ countryInput.addEventListener('keypress', (event) => {
     fetchCountryData();
   }
 });
+
+window.onload = populateCountryDatalist;
 
 /*
 // Function to fetch country data from an external API
