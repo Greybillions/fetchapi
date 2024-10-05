@@ -15,17 +15,23 @@ const searchBtn = document.getElementById('search-btn'),
   errorMessage = document.getElementById('error-message'),
   datalist = document.getElementById('countries'); //for options
 
-const populateCountryDatalist = async () => {
-  try {
-    const response = await fetch('https://restcountries.com/v3.1/all');
-    const countries = await response.json();
+// Assigning the API link
+const restCountries = 'https://restcountries.com/v3.1/';
 
-    // Loop through the countries and add <option> elements to the datalist
-    countries.forEach((country) => {
-      const option = document.createElement('option');
-      option.value = country.name.common; // Use the common name of the country
-      datalist.appendChild(option); // Append the option to the datalist
-    });
+// Function to add country names to the datalist
+const addCountryNames = (countries) => {
+  countries.forEach((country) => {
+    const option = document.createElement('option');
+    option.value = country.name.common; // Use the common name of the country
+    datalist.appendChild(option); // Append the option to the datalist
+  });
+};
+
+const countryDatalist = async () => {
+  try {
+    const response = await fetch(restCountries + 'all');
+    const countries = await response.json();
+    addCountryNames(countries);
   } catch (error) {
     console.error('Error fetching country list:', error);
   }
@@ -34,18 +40,13 @@ const populateCountryDatalist = async () => {
 // Function to fetch country data
 const fetchCountryData = () => {
   const country = countryInput.value.trim(); // Get user input and remove any extra spaces
-  if (country === ' ') {
-    errorMessage.textContent = 'Please enter a country name';
-    resultDiv.style.display = 'none';
-    return;
-  }
 
   // Clear previous error messages and results
   errorMessage.textContent = ' ';
   resultDiv.style.display = 'none';
 
   // Fetch data from the REST Countries API
-  fetch(`https://restcountries.com/v3.1/name/${country}`)
+  fetch(restCountries + `/name/${country}`)
     .then((response) => {
       if (!response.ok) {
         throw new Error('Country not found');
@@ -85,12 +86,12 @@ countryInput.addEventListener('keypress', (event) => {
   }
 });
 
-window.onload = populateCountryDatalist;
+window.onload = countryDatalist;
 
 /*
 // Function to fetch country data from an external API
 const fetchCountryData = (country) => {
-  fetch(`https://restcountries.com/v3.1/name/${country}`)
+  fetch(restCountries + `/name/${country}`)
     .then((response) => {
       if (!response.ok) {
         throw new Error('Country not found');
